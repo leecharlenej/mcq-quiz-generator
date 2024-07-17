@@ -48,12 +48,12 @@ def chatgpt_new_question_or_edit():
     selected_topic_ID = selected_topic_df.index.tolist()
 
     for row in selected_topic_df.itertuples():
-      print(f"{row.Index}. {row.Question}")
+      print(f"{row.Index+1}. {row.Question}")
 
     # User to choose question number
     while True:
         try:
-            question_num = int(helper_functions.user_input("\nChoose question number: "))
+            question_num = int(helper_functions.user_input("\nChoose question number: "))-1
             if question_num in selected_topic_ID:
                 break
             else:
@@ -143,11 +143,13 @@ def chatgpt_assistant(selected_question_string):
 
   if selected_option == 1:
     print('\n-------------- Rephrased question ------------')
+    # "Please rephrase the following question and provide a set of new options while maintaining the exact same naming of fields. Each option should be clearly labeled (Option1, Option2, etc.).  The identifiers for each field (ID, Topic, Sub_topic, Image_file) must not be changed. The answer field should remain unchanged but correspond to one of the newly formulated options.\n" + selected_question_string
     rephrase_question_prompt = "Please rephrase the entire following question and options (Options need not have the same idea and can be completely new.), and output in the same format:\n" + selected_question_string
     gpt_output = chat_with_gpt(rephrase_question_prompt)
 
   elif selected_option == 2:
     print('\n-------------- Similar question --------------')
+    # "Please create a completely new multiple-choice question that tests the same concept as described below. Ensure that the structure and field names remain exactly the same, and adhere to the original number of options. Each option should be clearly labeled (Option1, Option2, etc.). The identifiers for each field (ID, Topic, Sub_topic, Image_file) must not be changed. The answer field should also remain unchanged but must correctly correspond to one of the newly formulated options.\n" + selected_question_string
     similar_question_prompt = "Please create a completely new MCQ question, testing the same concept as the following question, and output in the same format:\n" + selected_question_string
     gpt_output = chat_with_gpt(similar_question_prompt)
 
