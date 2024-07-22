@@ -45,7 +45,8 @@ def create_new_mcq_quiz_folder():
 def create_new_quiz_db_csv(mcq_quiz_folder_path):
     with open(mcq_quiz_folder_path + "/quiz_db.csv", "w") as quiz_db:
         quiz_headers = ["ID", "Type", "Topic", "Sub_topic", "Image", "Image_file", "Question"]
-        print("\nThe headers already in the quiz database are: ID, Type, Topic, Sub_topic, Image, Image_file, Question and Answer.")
+        print("\nThe headers already in the quiz database are:")
+        print("ID, Type, Topic, Sub_topic, Image, Image_file, Question and Answer.")
         num_headers = int(helper_functions.user_input("Enter number of options: "))
 
         for i in range(num_headers):
